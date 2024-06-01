@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>belajar js-1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: none;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+      body {
+        height: 100vh;
+        background: #6a85a6;
+      }
+      .header {
+        background-color: aliceblue;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 5px;
+      }
+      #todo,
+      #bmi {
+        margin-bottom: 20px;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 15px;
+      }
+      #result {
+        background: aliceblue;
+        color: rgb(28, 29, 71);
+        margin: 5px;
+        padding: 13px;
+        border-radius: 12px;
+      }
+      input {
+        border-radius: 15px;
+        padding: 10px;
+        margin: 5px;
+      }
+      h2 {
+        background: #ddd;
+        display: inline;
+        border-radius: 15px;
+        padding: 10px;
+        margin-right: 10px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        border-radius: 15px;
+      }
+      li {
+        padding: 8px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        align-content: space-around;
+      }
+
+      button {
+        border-radius: 10px;
+        padding: 10px;
+      }
+      span {
+        color: #0658bd;
+        background-color: salmon;
+        border-radius: 5px;
+        padding: 2px;
+        margin: 2px;
+      }
+      .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Pengelola <span>Kesehatan</span> Pribadi</h1>
+      <p>Raihan <span>0066</span></p>
+    </div>
+
+    <!-- To-Do List Section -->
+    <div id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Masukkan aktivitas baru" />
+      <button onclick="addTask()">Tambah</button>
+      <ul id="taskList"></ul>
+    </div>
+    <!-- BMI Calculator Section -->
+    <div id="bmi">
+      <h2>Kalkulator BMI</h2>
+      <input type="number" id="weight" placeholder="Berat badan (kg)" />
+      <input type="number" id="height" placeholder="Tinggi badan (cm)" />
+      <button onclick="calculateBMI()">Hitung BMI</button>
+      <div id="result"></div>
+    </div>
+    <div class="footer">
+      <iframe
+        width="480"
+        height="244"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=r-Cn6EVCW3eeYy4Z"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <script>
+      // To-Do List Functions
+      function addTask() {
+        var taskInput = document.getElementById('taskInput');
+        var taskList = document.getElementById('taskList');
+
+        if (taskInput.value.trim() !== '') {
+          var li = document.createElement('li');
+          li.innerText = taskInput.value;
+
+          var deleteButton = document.createElement('button');
+          deleteButton.innerText = 'Hapus';
+          deleteButton.onclick = function () {
+            taskList.removeChild(li);
+          };
+
+          li.appendChild(deleteButton);
+          taskList.appendChild(li);
+          taskInput.value = '';
+        }
+      }
+
+      // BMI Calculator Functions
+      function calculateBMI() {
+        var weight = parseFloat(document.getElementById('weight').value);
+        var height = parseFloat(document.getElementById('height').value) / 100;
+
+        if (!isNaN(weight) && !isNaN(height)) {
+          var bmi = weight / (height * height);
+          var category;
+
+          if (bmi < 18.5) {
+            category = 'Kurus';
+          } else if (bmi >= 18.5 && bmi < 24.9) {
+            category = 'Normal';
+          } else if (bmi >= 25 && bmi < 29.9) {
+            category = 'Berat badan lebih';
+          } else {
+            category = 'Obesitas';
+          }
+
+          document.getElementById('result').innerHTML = `BMI: ${bmi.toFixed(2)} (${category})`;
+        } else {
+          document.getElementById('result').innerHTML = 'Masukkan nilai yang valid.';
+        }
+      }
+    </script>
+  </body>
+</html>
